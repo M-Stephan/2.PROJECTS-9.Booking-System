@@ -13,6 +13,8 @@ var database = Environment.GetEnvironmentVariable("DB_NAME");
 var user = Environment.GetEnvironmentVariable("USER_ID");
 var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
+builder.WebHost.UseUrls("http://+:80");
+
 // Construire la cha�ne de connexion MySQL
 var connectionString = $"server={server};port=3306;database={database};uid={user};pwd={password}";
 
