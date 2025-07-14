@@ -16,11 +16,10 @@
 9.Booking-System/
 	├─ .gitignore
 	├─ docker-compose.yml
-	├─ DockerFile
 	├─ README.md
 	└─ Solution/
-	 	├─ bin/
-	 	├─ obj/
+	 	├─ appsettings.json
+	 	├─ appsettings.Development.json
 	 	├─ Controllers/
 		|	└─ HomeController.cs
 	 	├─ Models/
