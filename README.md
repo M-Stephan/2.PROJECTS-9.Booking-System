@@ -29,5 +29,4 @@
 	 	├─ wwwroot/
 	 	└─ Properties/
 			└─ lauchSettings.json
-
 ```
