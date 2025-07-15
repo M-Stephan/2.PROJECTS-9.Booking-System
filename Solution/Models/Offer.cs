@@ -23,4 +23,7 @@ public class Offer
     public decimal Price { get; set; }
     
     public string Image { get; set; } = string.Empty;
+    
+    public ICollection<User> OfferUsers { get; set; } = new List<User>();
+
 }
