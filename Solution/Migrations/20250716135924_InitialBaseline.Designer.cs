@@ -12,8 +12,8 @@ using Solution.Data;
 namespace Solution.Migrations
 {
     [DbContext(typeof(ContextDataBase))]
-    [Migration("20250716113928_firstMigration")]
-    partial class firstMigration
+    [Migration("20250716135924_InitialBaseline")]
+    partial class InitialBaseline
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,7 +115,7 @@ namespace Solution.Migrations
 
                     b.Property<DateTime>("DateCreation")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
+                        .HasColumnType("timestamp")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<string>("Email")

@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using DotNetEnv;
 using Solution.Models;
 using Solution.Data;
-using DotNetEnv;
+
 
 namespace Solution.Data;
 
@@ -20,18 +21,25 @@ public class ContextDataBase : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        Env.Load();
-        var server = Environment.GetEnvironmentVariable("SERVER_IP");
-        var database = Environment.GetEnvironmentVariable("DB_NAME");
-        var user = Environment.GetEnvironmentVariable("USER_ID");
-        var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-        if (!optionsBuilder.IsConfigured)
-        {
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
-                                   ?? $"server={server};port=3306;database={database};uid={user};pwd={password};";
-
-            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)));
-        }
+        // Env.Load();
+        // var server = Environment.GetEnvironmentVariable("SERVER_IP");
+        // var database = Environment.GetEnvironmentVariable("DB_NAME");
+        // var user = Environment.GetEnvironmentVariable("USER_ID");
+        // var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+        //
+        // Console.WriteLine($"voici la connexion de la db : {server},{database},{user},{password}");
+        // if (string.IsNullOrEmpty(server) || string.IsNullOrEmpty(database) || string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
+        // {
+        //     throw new Exception("Variables d'environnement non chargées correctement !");
+        // }
+        //
+        // if (!optionsBuilder.IsConfigured)
+        // {
+        //     var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+        //                            ?? $"server={server};port=3307;database={database};uid={user};pwd={password};";
+        //
+        //     optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)));
+        // }
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,6 +63,7 @@ public class ContextDataBase : DbContext
                 .HasMaxLength(128);
             
             entity.Property(u => u.DateCreation)
+                .HasColumnType("timestamp")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
             
             entity.HasOne<Role>()
