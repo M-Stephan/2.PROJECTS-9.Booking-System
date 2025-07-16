@@ -1,5 +1,7 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Solution.Data;
+
 // using ReserveEase.Data; // Remplace par ton vrai namespace de DbContext
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +18,8 @@ var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
 // Construire la cha�ne de connexion MySQL
 var connectionString = $"server={server};port=3306;database={database};uid={user};pwd={password}";
 
-/*// Ajouter le contexte Entity Framework Core avec MySQL
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));*/
+// Ajouter le contexte Entity Framework Core avec MySQL
+builder.Services.AddDbContext<ContextDataBase>();
 
 // Ajouter les services MVC
 builder.Services.AddControllersWithViews();

@@ -1,19 +1,41 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using DotNetEnv;
 using Solution.Models;
+using Solution.Data;
+using DotNetEnv;
 
 namespace Solution.Data;
 
 //DbContext formule de base integree a entity
-public class ContextDataBase(DbContextOptions<ContextDataBase> options) : DbContext(options)
+public class ContextDataBase : DbContext
 {
+    public ContextDataBase(DbContextOptions<ContextDataBase> options) : base(options) { }
+
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Offer> Offers { get; set; }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        Env.Load();
+        var server = Environment.GetEnvironmentVariable("SERVER_IP");
+        var database = Environment.GetEnvironmentVariable("DB_NAME");
+        var user = Environment.GetEnvironmentVariable("USER_ID");
+        var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+        if (!optionsBuilder.IsConfigured)
+        {
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+                                   ?? $"server={server};port=3306;database={database};uid={user};pwd={password};";
 
-
-    //Cette méthode configure la structure de votre base de données via l'API Fluent.
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)));
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(u => u.Id);
@@ -103,3 +125,5 @@ public class ContextDataBase(DbContextOptions<ContextDataBase> options) : DbCont
         base.OnModelCreating(modelBuilder);
     }
     }
+
+
