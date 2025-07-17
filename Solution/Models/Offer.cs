@@ -24,6 +24,5 @@ public class Offer
     
     public string Image { get; set; } = string.Empty;
     
-    public ICollection<User> OfferUsers { get; set; } = new List<User>();
-
+    public User OfferUser { get; set; } = null!;
 }
