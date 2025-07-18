@@ -10,18 +10,16 @@
     <link rel="stylesheet" href="~/Solution.styles.css" asp-append-version="true" />
     <script src="~/js/site.bundle.js"></script>
 </head>
-<body>
+<body class="p-1">
 <header>
-    <nav>
-        <div class="bg-green-400 ">
-            <p class="bg-green-400">aaaa</p>
-            <img src="/images/logo2.png" class="w-25" /> @* format mobile, il faudra adapter ça pour le Desktop*@
-        </div>
+    <nav class="flex items-center justify-between px-4 py-2 bg-white shadow">
         <div>
-            <div class="flex items-center gap-2">
-                <i data-lucide="user" class="w-6 h-6 text-blue-500"></i>
-                <span class="text-lg">Profil</span>
-            </div>
+            <img src="/images/logoSite.png" class="w-25" alt="Logo" />
+        </div>
+
+
+        <div>
+            <i data-lucide="menu" class="w-6 h-6 text-blue-500"></i>
         </div>
     </nav>
 </header>
@@ -32,7 +30,7 @@
 </div>
 
 <footer>
-    <p>Footer du site</p>
+    @Html.Partial("_footer")
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
