@@ -1,16 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Solution.Data;
 using Solution.Models;
+using Solution.Service;
 
 namespace Solution.Service;
-
-public interface IOfferService
-{
-    Task<IEnumerable<Offer>> GetAllOffersAsync();
-    Task<Offer> GetOfferByIdAsync(int id);
-    
-    Task<Offer?> GetOfferWithRelationsAsync(int id);
-}
 
 public class OfferService : IOfferService
 {
@@ -36,5 +29,12 @@ public class OfferService : IOfferService
         return await _context.Offers
             .Include (o => o.OfferUser)
             .FirstOrDefaultAsync(o => o.Id == id);
+    }
+
+    public async Task<Offer> CreateOfferAsync(Offer offer)
+    {
+        _context.Offers.Add(offer);
+        await _context.SaveChangesAsync();
+        return offer;
     }
 }

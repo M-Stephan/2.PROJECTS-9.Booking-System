@@ -30,7 +30,32 @@ namespace Solution.Controllers
 
             return View(item);
         }
-
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+        
+        private int GetCurrentUserId()
+        {
+            return User.GetUserId();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Title,Description,Location,Type,BedNumber,BathNumber,NumberOfRooms,Price,Image")] Offer offer)
+        {
+            // Assigner l'utilisateur connecté (sécurité)
+            offer.IdUser = GetCurrentUserId(); 
+    
+            if (ModelState.IsValid)
+            {
+                await _offerService.CreateOfferAsync(offer);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(offer);
+        }
+        
         public async Task<IActionResult> Details(int id)
         {
             var item = await _offerService.GetOfferWithRelationsAsync(id);
@@ -41,5 +66,8 @@ namespace Solution.Controllers
 
             return View(item);
         }
+
+        
+        
     }
 }
