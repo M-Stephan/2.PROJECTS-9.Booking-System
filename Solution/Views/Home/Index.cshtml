@@ -1,4 +1,38 @@
 ﻿@model List<Solution.Models.CardViewModel>
+@* Script Js, permet d'écrire des du js*@
+@section Scripts {
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            const burgerBtn = document.querySelector("#burgerBtn");
+            const mobileMenu = document.querySelector("#mobileMenu");
+
+            if (burgerBtn && mobileMenu) {
+                burgerBtn.addEventListener("click", () => {
+                    // Toggle du menu
+                    mobileMenu.classList.toggle("hidden");
+
+                    // // Empêcher / autoriser le scroll sur <body> ET <html>
+                    // document.body.classList.toggle("overflow-hidden");
+                    // document.documentElement.classList.toggle("overflow-hidden");
+
+                    // Changer l'icône burger ↔ X
+                    const currentIcon = burgerBtn.getAttribute('data-lucide');
+                    if (currentIcon === 'menu') {
+                        burgerBtn.setAttribute('data-lucide', 'x');
+                    } else {
+                        burgerBtn.setAttribute('data-lucide', 'menu');
+                    }
+
+                    // Recréer les icônes Lucide après changement
+                    lucide.createIcons();
+                });
+            }
+        }, 100);
+    });
+    </script>
+}
+
 
 @{
     ViewData["Title"] = "Home Page";

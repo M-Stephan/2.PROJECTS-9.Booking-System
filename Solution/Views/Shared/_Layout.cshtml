@@ -8,20 +8,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/output.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Solution.styles.css" asp-append-version="true" />
-    <script src="~/js/site.bundle.js"></script>
+    @* <script src="~/js/site.bundle.js"></script> *@
 </head>
 <body class="p-1">
 <header>
-    <nav class="flex items-center justify-between px-4 py-2 bg-white shadow mb-2">
-        <div>
-            <img src="/images/logoSite.png" class="w-25" alt="Logo" />
-        </div>
-
-
-        <div>
-            <i data-lucide="menu" class="w-6 h-6 text-blue-500"></i>
-        </div>
-    </nav>
+   @Html.Partial("_header/_header")
 </header>
 @Html.Partial("_menu/_mainMenu")
 @Html.Partial("_menu/_menuFilter")
@@ -35,15 +26,12 @@
 <footer>
     @Html.Partial("_footer/_footer")
 </footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-
+@await RenderSectionAsync("Scripts", required: false)
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
   lucide.createIcons();
 </script>
 
-@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
