@@ -13,4 +13,9 @@ public interface IOfferService
     Task<Offer?> GetOfferWithRelationsAsync(int id);
     
     Task<Offer> CreateOfferAsync(Offer offer);
+    
+    Task<Offer?> UpdateOfferAsync(Offer offer);
+    
+    Task<bool> DeleteOfferAsync(int id, int userId);
+    Task<bool> OfferExistsAsync(int id);
 }
