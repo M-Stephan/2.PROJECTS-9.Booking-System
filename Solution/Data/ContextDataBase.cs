@@ -48,6 +48,14 @@ public class ContextDataBase : DbContext
         {
             entity.HasKey(u => u.Id);
             
+            entity.Property(u => u.FirstName)
+                .IsRequired()
+                .HasMaxLength(48);
+            
+            entity.Property(u => u.LastName)
+                .IsRequired()
+                .HasMaxLength(48);
+            
             entity.Property(u => u.Password)
                 .IsRequired()
                 .HasMaxLength(255);
