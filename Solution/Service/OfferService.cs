@@ -68,31 +68,33 @@ public class OfferService : IOfferService
         {
             throw;
         }
-        
-        public async Task<bool> DeleteOfferAsync(int id, int userId)
-        {
-            try
-            {
-                var offer = await _context.Offers.FindAsync(id);
-                if (offer == null || offer.IdUser != userId)
-                {
-                    return false; // Offre non trouvée ou pas le bon propriétaire
-                }
+    }
 
-                _context.Offers.Remove(offer);
-                var result = await _context.SaveChangesAsync();
-        
-                return result > 0;
-            }
-            catch (Exception)
+    public async Task<bool> DeleteOfferAsync(int id, int userId)
+    {
+        try
+        {
+            var offer = await _context.Offers.FindAsync(id);
+            if (offer == null || offer.IdUser != userId)
             {
-                return false;
+                return false; // Offre non trouvée ou pas le bon propriétaire
             }
+
+            _context.Offers.Remove(offer);
+            var result = await _context.SaveChangesAsync();
+
+            return result > 0;
         }
-
-        public async Task<bool> OfferExistsAsync(int id)
+        catch (Exception)
         {
-            return await _context.Offers.AnyAsync(o => o.Id == id);
+            return false;
         }
     }
+
+    public async Task<bool> OfferExistsAsync(int id)
+    {
+        return await _context.Offers.AnyAsync(o => o.Id == id);
+    }
 }
+
+
