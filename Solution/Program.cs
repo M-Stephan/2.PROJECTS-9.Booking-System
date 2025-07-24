@@ -2,6 +2,7 @@ using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Solution.Data;
+using Solution.Service;
 
 // using ReserveEase.Data; // Remplace par ton vrai namespace de DbContext
 
@@ -17,11 +18,13 @@ var user = Environment.GetEnvironmentVariable("USER_ID");
 var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
 // Construire la cha�ne de connexion MySQL
-var connectionString = $"server={server};port=3307;database={database};uid={user};pwd={password}";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Ajouter le contexte EF Core avec la chaîne de connexion complète
 builder.Services.AddDbContext<ContextDataBase>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
+    options.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped<IOfferService, OfferService>();
 
 // Ajouter les services MVC
 builder.Services.AddControllersWithViews();
@@ -29,6 +32,8 @@ builder.Services.AddControllersWithViews();
 // Ajouter Swagger (facultatif, tu peux commenter pour le moment)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 

@@ -19,28 +19,28 @@ public class ContextDataBase : DbContext
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Offer> Offers { get; set; }
     
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        // Env.Load();
-        // var server = Environment.GetEnvironmentVariable("SERVER_IP");
-        // var database = Environment.GetEnvironmentVariable("DB_NAME");
-        // var user = Environment.GetEnvironmentVariable("USER_ID");
-        // var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-        //
-        // Console.WriteLine($"voici la connexion de la db : {server},{database},{user},{password}");
-        // if (string.IsNullOrEmpty(server) || string.IsNullOrEmpty(database) || string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
-        // {
-        //     throw new Exception("Variables d'environnement non chargées correctement !");
-        // }
-        //
-        // if (!optionsBuilder.IsConfigured)
-        // {
-        //     var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
-        //                            ?? $"server={server};port=3307;database={database};uid={user};pwd={password};";
-        //
-        //     optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)));
-        // }
-    }
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => pour mySql
+    // {
+    //     Env.Load();
+    //     var server = Environment.GetEnvironmentVariable("SERVER_IP");
+    //     var database = Environment.GetEnvironmentVariable("DB_NAME"); 
+    //     var user = Environment.GetEnvironmentVariable("USER_ID");
+    //     var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
+    //     
+    //     Console.WriteLine($"voici la connexion de la db : {server},{database},{user},{password}");
+    //     if (string.IsNullOrEmpty(server) || string.IsNullOrEmpty(database) || string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password))
+    //     {
+    //         throw new Exception("Variables d'environnement non chargées correctement !");
+    //     }
+    //     
+    //     if (!optionsBuilder.IsConfigured)
+    //     {
+    //         var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+    //                                ?? $"server={server};port=3307;database={database};uid={user};pwd={password};";
+    //     
+    //         optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)));
+    //     }
+    // }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         
